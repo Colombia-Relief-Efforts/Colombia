@@ -3,33 +3,32 @@ import Layout from "../components/layout";
 import OneFaq from "../components/SubPage/FAQ/OneFaq";
 import Hero from "../components/SubPage/Hero/hero";
 import Link from "next/link";
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import Button from "../components/Button/button";
 import ListItem from "../components/List/listItem";
+import { useTranslation } from 'next-i18next/pages';
 
 export default function ForDonors() {
+    const { t } = useTranslation('for-donors');
+
     return (
       <Layout>
         <Head>
-          <title>For Donors | Help UA Now</title>
+          <title>{t('title')}</title>
           <meta
             key="donors-description"
             name="donors-description"
-            content="Helping you meaningfully support grassroots fundraising efforts for Ukraine. This project was created to find, evaluate and amplify credible fundraisers organized by Ukrainian volunteers."
+            content={t('description')}
           />
           <meta
             key="donors-og:title"
             property="og:title"
-            content="For Donors | Help UA Now"
+            content={t('title')}
           />
           <meta
             key="donors-og:description"
             property="og:description"
-            content="Helping you meaningfully support grassroots fundraising efforts for Ukraine. This project was created to find, evaluate and amplify credible fundraisers organized by Ukrainian volunteers."
-          />
-          <meta
-            key="donors-og:url"
-            property="og:url"
-            content="https://www.helpuanow.org/for-donors"
+            content={t('description')}
           />
           <meta
             key="donors-og:type"
@@ -39,89 +38,54 @@ export default function ForDonors() {
         </Head>
         <div className="w-full md:w-3/4 lg:w-2/3 pb-8">
           <Hero
-            title="For donors"
-            description="Helping you meaningfully support grassroots fundraising efforts for Ukraine."
+            title={t('hero-title')}
+            description={t('description')}
           />
-          <p>
-            This project was created to find, evaluate and amplify credible
-            fundraisers organized by Ukrainian volunteers.
-          </p>
+          <p>{t('intro')}</p>
           <div className="bg-gray-100 absolute right-0 py-8 px-6 sm:px-16 sm:mt-8 lg:pl-40 lg:pr-96">
             <div className="mt-16">
               <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8">
-                F.A.Q.
+                {t('faq')}
               </h1>
-              <OneFaq title="Why donate to small fundraisers?">
-                <p>
-                  Since Russia’s most recent invasion, friends and families of
-                  people fighting on the frontlines, activists, and others have
-                  volunteered to support the people and military in Ukraine, at
-                  times risking their lives to deliver essential supplies to
-                  occupied areas. While large charities will continue playing a
-                  crucial role in helping people affected by this war, their
-                  ability to quickly respond to the needs of small groups in
-                  different regions of Ukraine is limited. Volunteers fill in
-                  this gap. They have first-hand information on the most current
-                  and urgent needs. Every dollar of the donation to their
-                  fundraisers goes to life-saving supplies and services -
-                  medicines, protective gear, transportation, and more - making
-                  a tremendous impact for people on the ground.
-                </p>
+              <OneFaq title={t('why-title')}>
+                <p>{t('why-body')}</p>
               </OneFaq>
-              <OneFaq title="How do we vet volunteer-driven fundraisers?">
+              <OneFaq title={t('vet-title')}>
                 <ul className="list-disc ml-8">
+                  <li>{t('vet-1')}</li>
+                  <li>{t('vet-2')}</li>
                   <li>
-                    Multiple people on our team independently evaluate
-                    fundraiser information.
-                  </li>
-                  <li>
-                    We only onboard fundraisers that have proven ability to
-                    deliver aid.
-                  </li>
-                  <li>
-                    We only support fundraisers hosted on credible social media
-                    pages or websites. Read more:{" "}
-                    <Link href="/for-fundraisers/for-reputation-backers">
-                      <a className="font-medium text-uablue-default underline underline-offset-4 hover:text-uablue-accent">
-                        here
-                      </a>
+                    {t('vet-3')} {" "}
+                    <Link
+                      href="/for-fundraisers/for-reputation-backers"
+                      className="font-medium text-brandblue-default underline underline-offset-4 hover:text-brandblue-accent"
+                    >
+                      {t('vet-link')}
                     </Link>
                   </li>
-                  <li>
-                    Soon, we will employ a group of trusted Ukrainians with
-                    connections to volunteer networks on the ground to further
-                    formalize our vetting process.
-                  </li>
+                  <li>{t('vet-4')}</li>
                 </ul>
                 <ul>
                   <ListItem>
-                    <strong>Disclaimer: </strong>
-                    We are confident in fundraisers we have vetted, but the
-                    final decision to donate is yours. Before donating,
-                    double-check the legitimacy of the social media page hosting
-                    the fundraiser.
+                    <strong>{t('disclaimer-label')} </strong>
+                    {t('disclaimer')}
                   </ListItem>
                 </ul>
               </OneFaq>
-              <OneFaq title="How to donate?">
-                <p>
-                  Click “Donate Now” for deposit information. We are not hosting
-                  payment information directly on our website at the moment.
-                </p>
+              <OneFaq title={t('how-title')}>
+                <p>{t('how-body')}</p>
                 <ul>
                   <ListItem>
-                    <strong>Donating to a Ukrainian card:</strong> Wise, SWIFT,
-                    Western Union
+                    <strong>{t('colombia-account')}</strong> {t('colombia-methods')}
                   </ListItem>
                   <ListItem>
-                    <strong>Donating to a US-based account:</strong> Venmo,
-                    Paypal, Zelle, Revolut, CashApp
+                    <strong>{t('international-account')}</strong> {t('international-methods')}
                   </ListItem>
                 </ul>
                 <br />
                 <div className="w-full sm:w-64">
                   <Button
-                    value="See All Fundraisers"
+                    value={t('see-all')}
                     href="/"
                     target="_blank"
                   />
@@ -132,4 +96,12 @@ export default function ForDonors() {
         </div>
       </Layout>
     );
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'for-donors'])),
+    },
+  };
 }

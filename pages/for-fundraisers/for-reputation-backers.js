@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import Layout from "../../components/layout";
 import Hero from "../../components/SubPage/Hero/hero";
 import BlueInlineCallout from "../../components/blueInlineCallout";
@@ -14,34 +14,27 @@ export default function ForReputationBackers(props) {
     return (
       <Layout>
         <Head>
-          <title>For Reputation Backers | Help UA Now</title>
+          <title>{t("for-reputation-backers.hero-title")} | Help Colombia Now</title>
           <meta
             key="reputation-backers"
             name="description"
-            content="Individuals with meaningful social media presence who are willing to vouch for the emergency fundraiser by Ukrainian volunteers."
+            content="Individuals with a meaningful social media presence who are willing to vouch for emergency fundraisers led by Colombian volunteers."
           />
           <meta
             key="reputation-backers-og:title"
             property="og:title"
-            content="For Reputation Backers | Help UA Now"
+            content="For Reputation Backers | Help Colombia Now"
           />
           <meta
             key="reputation-backers-og:description"
             property="og:description"
-            content="Individuals with meaningful social media presence who are willing to vouch for the emergency fundraiser by Ukrainian volunteers."
-          />
-          <meta
-            key="reputation-backers-og:url"
-            property="og:url"
-            content="https://www.helpuanow.org/for-fundraisers/for-reputation-backers"
+            content="Individuals with a meaningful social media presence who are willing to vouch for emergency fundraisers led by Colombian volunteers."
           />
           <meta property="og:type" content="website" />
         </Head>
         <div className="w-full md:w-3/4 lg:w-2/3 pb-8">
           <div className="mt-12 font-bold lg:pl-24">
-            <Link href="/for-fundraisers" passHref>
-              <a>{"<"} BACK</a>
-            </Link>
+            <Link href="/for-fundraisers">{"<"} BACK</Link>
           </div>
           <Hero
             title={t("for-reputation-backers.hero-title")}
@@ -50,7 +43,7 @@ export default function ForReputationBackers(props) {
           />
           <div className="bg-gray-100 absolute right-0 py-8 px-6 sm:px-16 sm:mt-8 lg:pl-40 lg:pr-96">
             <div className="mt-8">
-              <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8 text-uablue-default">
+              <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8 text-brandblue-default">
                 {t("for-reputation-backers.problem.heading")}
               </h1>
               <p>{t("for-reputation-backers.problem.section1")}</p>
@@ -58,7 +51,7 @@ export default function ForReputationBackers(props) {
               <p>{t("for-reputation-backers.problem.section2")}</p>
               <br />
               <p>{t("for-reputation-backers.problem.section3")}</p>
-              <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8 text-uablue-default">
+              <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8 text-brandblue-default">
                 {t("for-reputation-backers.solution.heading")}
               </h1>
               <p>{t("for-reputation-backers.solution.section1")}</p>

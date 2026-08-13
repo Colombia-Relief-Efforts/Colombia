@@ -11,7 +11,7 @@ module.exports = {
         sans: ['Open Sans',...defaultTheme.fontFamily.sans],
      },
     colors: {
-      uablue: {
+      brandblue: {
         default: '#005BBC',
         accent: '#1E429F'
         },

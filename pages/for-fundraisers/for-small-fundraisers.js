@@ -1,9 +1,8 @@
 import Head from 'next/head'
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import Layout from "../../components/layout";
 import Hero from "../../components/SubPage/Hero/hero";
-import sheets from "../../lib/sheets";
 import BlueInlineCallout from "../../components/blueInlineCallout";
 import Link from "next/link";
 import Button from "../../components/Button/button";
@@ -15,26 +14,21 @@ export default function ForSmallFundraisers(props) {
     return (
       <div>
         <Head>
-          <title>For Small Fundraisers | Help UA Now</title>
+          <title>{t("for-small-fundraisers.hero-title")} | Help Colombia Now</title>
           <meta
             key="small-fundraisers-description"
             name="description"
-            content="Application guide for local volunteer groups supporting Ukrainians in need."
+            content="Application guide for local volunteer groups supporting Colombians in need."
           />
           <meta
             key="small-fundraisers-og:title"
             property="og:title"
-            content="For Small Fundraisers | Help UA Now"
+            content="For Small Fundraisers | Help Colombia Now"
           />
           <meta
             key="small-fundraisers-og:description"
             property="og:description"
-            content="Help your fundraiser reach a wider international audience. We onboard and verify civilian lead fundraisers in Ukraine, connecting them to donors"
-          />
-          <meta
-            key="small-fundraisers-og:url"
-            property="og:url"
-            content="https://www.helpuanow.org/for-fundraisers/for-small-fundraisers"
+            content="Help your fundraiser reach a wider audience. We review community-led fundraisers in Colombia and connect them with donors."
           />
           <meta
             key="small-fundraisers-og:type"
@@ -45,9 +39,7 @@ export default function ForSmallFundraisers(props) {
         <Layout>
           <div className="w-full md:w-3/4 lg:w-2/3 pb-8">
             <div className="mt-12 font-bold lg:pl-24">
-              <Link href="/for-fundraisers" passHref>
-                <a>{"<"} BACK</a>
-              </Link>
+              <Link href="/for-fundraisers">{"<"} BACK</Link>
             </div>
             <Hero
               title={t("for-small-fundraisers.hero-title")}
@@ -56,7 +48,7 @@ export default function ForSmallFundraisers(props) {
           </div>
           <div className="bg-gray-100 absolute right-0 py-8 px-6 sm:px-16 sm:mt-8 lg:pl-40 lg:pr-96">
             <div className="mt-8">
-              <h1 className="font-bold text-2xl lg:text-4xl mb-4 text-uablue-default">
+              <h1 className="font-bold text-2xl lg:text-4xl mb-4 text-brandblue-default">
                 {t("for-small-fundraisers.step1")}
               </h1>
               <p>{t("for-small-fundraisers.step1.description")}</p>
@@ -82,7 +74,7 @@ export default function ForSmallFundraisers(props) {
               </div>
             </div>
             <div>
-              <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8 text-uablue-default">
+              <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8 text-brandblue-default">
                 {t("for-small-fundraisers.step2")}
               </h1>
               <p>{t("for-small-fundraisers.step2.description")}</p>
@@ -130,7 +122,7 @@ export default function ForSmallFundraisers(props) {
               </BlueInlineCallout>
             </div>
             <div>
-              <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8 text-uablue-default">
+              <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8 text-brandblue-default">
                 {t("for-small-fundraisers.step3")}
               </h1>
               <p>{t("for-small-fundraisers.step3.description")}</p>
@@ -153,16 +145,8 @@ export default function ForSmallFundraisers(props) {
 }
 
 export async function getStaticProps({ locale }) {
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.SHEET_ID,
-        range: "Payment Method",
-    });
-    const [title, ...rows] = response.data.values;
-
     return {
         props: {
-            title,
-            rows,
             ...(await serverSideTranslations(locale, ['for-small-fundraisers', 'common'])),
         },
     };

@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import Link from "next/link";
 import Layout from "../components/layout";
 import OneFaq from "../components/SubPage/FAQ/OneFaq";
@@ -13,26 +13,21 @@ export default function AboutUs() {
     return (
       <Layout>
         <Head>
-          <title>About Us | Help UA Now</title>
+          <title>{t("about-us.hero-title")} | Help Colombia Now</title>
           <meta
             key="about-us-description"
             name="description"
-            content="We are a group of volunteers from all walks of life, united over a mission to save Ukrainian lives and support the wellbeing of people affected by the war."
+            content="We are volunteers united in supporting people and communities affected by emergencies in Colombia."
           />
           <meta
             key="about-us-og:title"
             property="og:title"
-            content="About Us | Help UA Now"
+            content="About Us | Help Colombia Now"
           />
           <meta
             key="about-us-og:description"
             property="og:description"
-            content="We are a group of volunteers from all walks of life, united over a mission to save Ukrainian lives and support the wellbeing of people affected by the war."
-          />
-          <meta
-            key="about-us-og:url"
-            property="og:url"
-            content="https://www.helpuanow.org/about-us"
+            content="We are volunteers united in supporting people and communities affected by emergencies in Colombia."
           />
           <meta
             key="about-us-og:type"
@@ -47,7 +42,7 @@ export default function AboutUs() {
           <div className="bg-gray-100 absolute right-0 py-8 px-6 sm:px-16 sm:mt-8 lg:pl-40 lg:pr-96">
             <div className="mt-8">
               <p>{t("about-us.description")}</p>
-              <h1 className="font-bold text-4xl lg:text-4xl mb-4 mt-12 text-uablue-default">
+              <h1 className="font-bold text-4xl lg:text-4xl mb-4 mt-12 text-brandblue-default">
                 {t("about-us.faq-heading")}
               </h1>
               <OneFaq title={t("about-us.onefaq.donation-impact")} titleBlack>
@@ -70,10 +65,11 @@ export default function AboutUs() {
                   </ListItem>
                   <ListItem>
                     {t("about-us.onefaq.credibility.section2")}{" "}
-                    <Link href="/for-fundraisers/for-reputation-backers">
-                      <a className="font-medium text-uablue-default underline underline-offset-4 hover:text-uablue-accent">
-                        {t("about-us.onefaq.credibility.section2.link")}
-                      </a>
+                    <Link
+                      href="/for-fundraisers/for-reputation-backers"
+                      className="font-medium text-brandblue-default underline underline-offset-4 hover:text-brandblue-accent"
+                    >
+                      {t("about-us.onefaq.credibility.section2.link")}
                     </Link>
                   </ListItem>
                 </ul>

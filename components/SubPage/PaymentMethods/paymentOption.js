@@ -5,7 +5,7 @@ import Image from "next/image";
 import PaymentDesc from "./paymentDesc";
 
 export default function PaymentOption(props) {
-    const [isActive, setActive] = useState(props.active);
+    const [isActive, setActive] = useState(props.initiallyExpanded);
 
     return (
         <div>
@@ -17,11 +17,11 @@ export default function PaymentOption(props) {
                     }
                 </div>
                 <div className="w-full">
-                    <h4 className="text-2xl font-bold text-uablue-default mb-2" onClick={() => setActive(!isActive)}>
-                    {props.payDesc[0]}
+                    <h4 className="text-2xl font-bold text-brandblue-default mb-2" onClick={() => setActive(!isActive)}>
+                    {props.method.name}
                     </h4>
                     {isActive &&
-                        <PaymentDesc payDesc={props.payDesc}/>
+                        <PaymentDesc method={props.method}/>
                     }
                 </div>
             </div>

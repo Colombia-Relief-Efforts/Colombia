@@ -3,7 +3,7 @@ export default function OneFaq (props) {
         <div>
             <div className="py-4">
                 <h4 
-                    className={"text-2xl font-bold mb-4 tracking-tight " + (props.titleBlack ? '' : "text-uablue-default")}
+                    className={"text-2xl font-bold mb-4 tracking-tight " + (props.titleBlack ? '' : "text-brandblue-default")}
                 >
                     {props.title}
                 </h4>

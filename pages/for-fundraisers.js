@@ -1,37 +1,32 @@
 import Head from 'next/head'
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import Layout from "../components/layout";
 import Hero from "../components/SubPage/Hero/hero";
 import PaymentMethods from "../components/SubPage/PaymentMethods/paymentMethods";
 import Image from "next/image";
 import arrowDown from "../public/assets/icons/arrow_right.svg";
 import OneFaq from "../components/SubPage/FAQ/OneFaq";
-import sheets from "../lib/sheets";
+import { getPaymentMethods } from "../lib/markdown";
 import Link from "next/link";
 
-export default function ForFundraisers(props) {
+export default function ForFundraisers({ paymentMethods }) {
     const { t } = useTranslation('for-fundraisers')
 
     return (
       <Layout>
         <Head>
-          <title>For Fundraisers | Help UA Now</title>
+          <title>{t("for-fundraisers.hero-title")} | Help Colombia Now</title>
           <meta
             key="fundraiser-description"
             name="description"
-            content="Help your fundraiser reach a wider international audience. We onboard and verify civilian lead fundraisers in Ukraine, connecting them to donors"
+            content="Help your fundraiser reach a wider audience. We review community-led fundraisers in Colombia and connect them with donors."
           />
-          <meta property="og:title" content="For Fundraisers | Help UA Now" />
+          <meta property="og:title" content="For Fundraisers | Help Colombia Now" />
           <meta
             key="fundraiser-og:description"
             property="og:description"
-            content="Help your fundraiser reach a wider international audience. We onboard and verify civilian lead fundraisers in Ukraine, connecting them to donors"
-          />
-          <meta
-            key="fundraiser-og:url"
-            property="og:url"
-            content="https://www.helpuanow.org/for-fundraisers"
+            content="Help your fundraiser reach a wider audience. We review community-led fundraisers in Colombia and connect them with donors."
           />
           <meta
             key="fundraiser-og:type"
@@ -56,17 +51,18 @@ export default function ForFundraisers(props) {
                 <div className="w-7 shrink-0 mr-2">
                   <Image src={arrowDown} alt="arrow down" />
                 </div>
-                <div className="w-100">
-                  <h4 className="text-2xl font-bold mb-4 text-uablue-default">
+                <div className="w-full">
+                  <h4 className="text-2xl font-bold mb-4 text-brandblue-default">
                     {t("for-fundraisers.apply.section1")}
                   </h4>
                   <p className="mb-4">
                     {t("for-fundraisers.apply.section1.description")}
                   </p>
-                  <Link href="/for-fundraisers/for-small-fundraisers">
-                    <a className="font-medium text-lg text-uablue-default underline underline-offset-4 hover:text-uablue-accent">
-                      {t("for-fundraisers.apply.section1.link")}
-                    </a>
+                  <Link
+                    href="/for-fundraisers/for-small-fundraisers"
+                    className="font-medium text-lg text-brandblue-default underline underline-offset-4 hover:text-brandblue-accent"
+                  >
+                    {t("for-fundraisers.apply.section1.link")}
                   </Link>
                 </div>
               </div>
@@ -75,17 +71,18 @@ export default function ForFundraisers(props) {
                 <div className="w-7 shrink-0 mr-2">
                   <Image src={arrowDown} alt="arrow down" />
                 </div>
-                <div className="w-100">
-                  <h4 className="text-2xl font-bold mb-4 text-uablue-default">
+                <div className="w-full">
+                  <h4 className="text-2xl font-bold mb-4 text-brandblue-default">
                     {t("for-fundraisers.apply.section2")}
                   </h4>
                   <p className="mb-4">
                     {t("for-fundraisers.apply.section2.description")}
                   </p>
-                  <Link href="/for-fundraisers/for-reputation-backers">
-                    <a className=" font-medium text-lg text-uablue-default hover:text-uablue-accent underline underline-offset-4">
-                      {t("for-fundraisers.apply.section2.link")}
-                    </a>
+                  <Link
+                    href="/for-fundraisers/for-reputation-backers"
+                    className=" font-medium text-lg text-brandblue-default hover:text-brandblue-accent underline underline-offset-4"
+                  >
+                    {t("for-fundraisers.apply.section2.link")}
                   </Link>
                 </div>
               </div>
@@ -94,17 +91,18 @@ export default function ForFundraisers(props) {
                 <div className="w-7 shrink-0 mr-2">
                   <Image src={arrowDown} alt="arrow down" />
                 </div>
-                <div className="w-100">
-                  <h4 className="text-2xl font-bold mb-4 text-uablue-default">
+                <div className="w-full">
+                  <h4 className="text-2xl font-bold mb-4 text-brandblue-default">
                     {t("for-fundraisers.apply.section3")}
                   </h4>
                   <p className="mb-4">
                     {t("for-fundraisers.apply.section3.description")}
                   </p>
-                  <Link href="/for-fundraisers/for-large-organizations">
-                    <a className="font-medium text-lg text-uablue-default hover:text-uablue-accent underline underline-offset-4">
-                      {t("for-fundraisers.apply.section3.link")}
-                    </a>
+                  <Link
+                    href="/for-fundraisers/for-large-organizations"
+                    className="font-medium text-lg text-brandblue-default hover:text-brandblue-accent underline underline-offset-4"
+                  >
+                    {t("for-fundraisers.apply.section3.link")}
                   </Link>
                 </div>
               </div>
@@ -120,7 +118,7 @@ export default function ForFundraisers(props) {
                 <p>
                   {t("for-fundraisers.faq.section2.description")}{" "}
                   <a
-                    className="underline text-uablue-default hover:text-uablue-accent"
+                    className="underline text-brandblue-default hover:text-brandblue-accent"
                     href="https://docs.google.com/document/d/1Xrf6CwJ0n6cAqccjf-Q85MlnLrzkqnZMDfjNa5xwAEQ/edit"
                     target="_blank"
                     rel="noreferrer"
@@ -133,7 +131,7 @@ export default function ForFundraisers(props) {
                 <p>
                   {t("for-fundraisers.faq.section3.description")}{" "}
                   <a
-                    className="underline text-uablue-default hover:text-uablue-accent"
+                    className="underline text-brandblue-default hover:text-brandblue-accent"
                     href="https://docs.google.com/forms/d/e/1FAIpQLSdgj1TpCypclrkZB9g5msGX2g6CqBQB8iiVJllDj_1Ne-QuzQ/viewform"
                     target="_blank"
                     rel="noreferrer"
@@ -163,9 +161,8 @@ export default function ForFundraisers(props) {
             </div>
             <div className="mt-8">
               <PaymentMethods
-                titles={props.title}
-                rows={props.rows}
-                ukraine={false}
+                methods={paymentMethods}
+                colombia={false}
               />
             </div>
           </div>
@@ -175,16 +172,11 @@ export default function ForFundraisers(props) {
 }
 
 export async function getStaticProps({ locale }) {
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.SHEET_ID,
-        range: "Payment Method",
-    });
-    const [title, ...rows] = response.data.values;
+    const paymentMethods = getPaymentMethods();
 
     return {
         props: {
-            title,
-            rows,
+            paymentMethods,
             ...(await serverSideTranslations(locale, ['for-fundraisers', 'common'])),
         },
     };

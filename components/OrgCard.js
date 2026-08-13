@@ -1,67 +1,48 @@
-import Link from "next/link";
-import Badge from "./Badge/badge";
 import Button from "./Button/button";
 import Image from "next/image";
+import Markdown from "react-markdown";
+import { useTranslation } from 'next-i18next/pages';
 
-function OrgCard({ titles, values, orgIndex, open }) {
-  const [
-    orgName,
-    donationLinks,
-    largeDonationsContact,
-    englishDesc,
-    cause,
-    spendingTowards,
-    acomplishments,
-    backedBy,
-    paymentMethod,
-    crypto,
-    instagram,
-    facebook,
-    twitter,
-    website,
-    bannerImage,
-    smallOrg,
-    bannerImage2
-  ] = values;
-
-  const bannerViewableUrl =
-    typeof bannerImage2 === "string"
-      ? bannerImage2
-      : "";
+function OrgCard({ organization, onOpen }) {
+  const { t } = useTranslation('common');
+  const { name, description, imageUrl, city, department } = organization;
 
   return (
-    <div className="bg-[#F2F6FF] w-full mb-5 h-100 flex flex-col justify-between rounded-3xl shadow-2xl">
-      <a
-        onClick={open}
-        className='cursor-pointer'
+    <article className="flex w-full min-w-0 flex-col overflow-hidden rounded-3xl bg-[#F2F6FF] shadow-lg transition-shadow hover:shadow-xl">
+      <button
+        type="button"
+        onClick={onOpen}
+        className="w-full cursor-pointer bg-white/70 p-4"
+        aria-label={`${t('organization.learn-more')}: ${name}`}
       >
-        <div className="w-full mb-2">
-          <div className="h-56 w-full relative">
-            <Image
-              src={bannerViewableUrl == '' ? '/assets/default_cover.png' : bannerViewableUrl}
-              alt={orgName}
-              layout='fill'
-              objectFit="cover"
-              objectPosition={'center','center'}
-              className='rounded-t-2xl'
-              loading="lazy"
-            />
-            {/* <div className='absolute left-4 top-4 float-left'>
-              <Badge value={cause} />
-            </div> */}
+        <div className="relative mx-auto h-80 w-full">
+          <Image
+            src={imageUrl}
+            alt={name}
+            fill
+            sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 90vw"
+            className="object-contain"
+            loading="lazy"
+          />
+        </div>
+      </button>
+      <div className="flex min-w-0 flex-1 flex-col p-6 md:p-8">
+        <button type="button" onClick={onOpen} className="w-full text-left">
+          <h2 className="mb-3 text-2xl font-bold">{name}</h2>
+          {(city || department) && (
+            <p className="mb-3 text-sm font-semibold text-brandblue-default">
+              {[city, department].filter(Boolean).join(", ")}
+            </p>
+          )}
+          <div className="line-clamp-3 text-base leading-relaxed text-gray-700">
+            <Markdown>{description}</Markdown>
           </div>
+        </button>
+        <div className="mt-auto flex pt-6">
+          <Button onClick={onOpen} value={t('organization.learn-more')}/>
         </div>
-        <div className="m-6">
-            <h1 className=" font-bold text-2xl mb-4">
-              {orgName}
-            </h1>
-            <p className="text-base">{englishDesc}</p>
-        </div>
-      </a>
-      <div className="flex mb-6 mt-5 px-4">
-        <Button onClick={open} value='Learn More'/>
       </div>
-    </div>
+    </article>
   );
 }
 export default OrgCard;
