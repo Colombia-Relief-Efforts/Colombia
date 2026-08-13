@@ -2,6 +2,7 @@ import Button from "./Button/button";
 import Image from "next/image";
 import Markdown from "react-markdown";
 import { useTranslation } from 'next-i18next/pages';
+import { withBasePath } from "../lib/i18n-routing";
 
 function OrgCard({ organization, onOpen }) {
   const { t } = useTranslation('common');
@@ -17,7 +18,7 @@ function OrgCard({ organization, onOpen }) {
       >
         <div className="relative mx-auto h-80 w-full">
           <Image
-            src={imageUrl}
+            src={withBasePath(imageUrl)}
             alt={name}
             fill
             sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 90vw"

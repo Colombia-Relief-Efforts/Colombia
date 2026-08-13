@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next/pages";
+import { localizedPath } from "../lib/i18n-routing";
 import OrgCard from "./OrgCard";
 import OrganizationModal from "./OrganizationModal";
 
@@ -10,7 +11,7 @@ const CATEGORY = {
 };
 
 function CategoryTabs({ activeCategory, onChange }) {
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation("common");
   const categories = [
     { id: CATEGORY.COMMUNITY, label: t("home.small-fundraisers") },
     { id: CATEGORY.LARGE, label: t("home.large-charities") },
@@ -93,16 +94,16 @@ export default function FundraiserDirectory({ organizations }) {
 
   function openOrganization(organization) {
     setSelectedOrganization(organization);
-    window.history.pushState(null, "", `/${organization.slug}`);
   }
 
   function closeOrganization() {
     setSelectedOrganization(null);
-    window.history.pushState(null, "", "/");
   }
 
   function navigateToOrganization() {
-    if (selectedOrganization) router.push(`/${selectedOrganization.slug}`);
+    if (selectedOrganization) {
+      router.push(localizedPath(`/${selectedOrganization.slug}`, i18n.resolvedLanguage));
+    }
   }
 
   const categoryDescription =

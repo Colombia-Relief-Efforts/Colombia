@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next/pages';
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
-import Link from "next/link";
+import Link from "../components/LocalizedLink";
 import Layout from "../components/layout";
 import OneFaq from "../components/SubPage/FAQ/OneFaq";
 import Hero from "../components/SubPage/Hero/hero";
@@ -101,7 +101,7 @@ export default function AboutUs() {
     );
 }
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale = "es" }) {
     return {
         props: {
             ...(await serverSideTranslations(locale, ['about-us', 'common'])),

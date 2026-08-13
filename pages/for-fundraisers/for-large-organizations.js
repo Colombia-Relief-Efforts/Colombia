@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "../../components/LocalizedLink";
 import { serverSideTranslations } from "next-i18next/pages/serverSideTranslations";
 import { useTranslation } from "next-i18next/pages";
 
@@ -83,7 +83,7 @@ export default function ForLargeOrganizations() {
   );
 }
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale = "es" }) {
     return {
         props: {
       ...(await serverSideTranslations(locale, ["common", "for-large-organizations"])),

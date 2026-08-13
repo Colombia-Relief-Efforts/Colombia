@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Layout from "../components/layout";
 import OneFaq from "../components/SubPage/FAQ/OneFaq";
 import Hero from "../components/SubPage/Hero/hero";
-import Link from "next/link";
+import Link from "../components/LocalizedLink";
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import Button from "../components/Button/button";
 import ListItem from "../components/List/listItem";
@@ -98,7 +98,7 @@ export default function ForDonors() {
     );
 }
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale = "es" }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'for-donors'])),

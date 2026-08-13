@@ -1,11 +1,19 @@
 /** @type {import('next').NextConfig} */
-const { i18n } = require('./next-i18next.config');
 const { withSentryConfig } = require('@sentry/nextjs');
+const basePath = process.env.PAGES_BASE_PATH || '';
+
 const nextConfig = {
-  i18n,
+  output: 'export',
+  trailingSlash: true,
+  basePath,
+  assetPrefix: basePath,
   agentRules: false,
   reactStrictMode: true,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
