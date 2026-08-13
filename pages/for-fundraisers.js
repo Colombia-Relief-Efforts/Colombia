@@ -8,7 +8,7 @@ import Image from "next/image";
 import arrowDown from "../public/assets/icons/arrow_right.svg";
 import OneFaq from "../components/SubPage/FAQ/OneFaq";
 import { getPaymentMethods } from "../lib/markdown";
-import Link from "next/link";
+import Link from "../components/LocalizedLink";
 
 export default function ForFundraisers({ paymentMethods }) {
     const { t } = useTranslation('for-fundraisers')
@@ -171,7 +171,7 @@ export default function ForFundraisers({ paymentMethods }) {
     );
 }
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale = "es" }) {
     const paymentMethods = getPaymentMethods();
 
     return {

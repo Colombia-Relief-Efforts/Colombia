@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next/pages";
 import { serverSideTranslations } from "next-i18next/pages/serverSideTranslations";
 import FundraiserDirectory from "../components/FundraiserDirectory";
 import Hero from "../components/Hero/hero";
@@ -20,8 +20,8 @@ const METADATA = {
 };
 
 export default function Home({ organizations }) {
-  const { locale } = useRouter();
-  const metadata = METADATA[locale] || METADATA.es;
+  const { i18n } = useTranslation();
+  const metadata = METADATA[i18n.resolvedLanguage] || METADATA.es;
 
   return (
     <Layout>
@@ -35,12 +35,11 @@ export default function Home({ organizations }) {
   );
 }
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale = "es" }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
       organizations: getOrganizations(),
     },
-    revalidate: 10,
   };
 }

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next/pages";
+import { localizedPath, stripLanguagePrefix } from "../../lib/i18n-routing";
 import logo from "../../public/logo-help-colombia.png";
 
 const NAVIGATION = [
@@ -17,9 +18,11 @@ const LANGUAGES = ["es", "en"];
 
 function LanguageSwitcher({ compact = false }) {
   const router = useRouter();
+  const { i18n } = useTranslation();
+  const activeLanguage = i18n.resolvedLanguage || "es";
 
-  function changeLanguage(locale) {
-    router.push(router.asPath, undefined, { locale });
+  function changeLanguage(language) {
+    router.push(localizedPath(router.asPath, language));
   }
 
   return (
@@ -29,9 +32,9 @@ function LanguageSwitcher({ compact = false }) {
           key={language}
           type="button"
           onClick={() => changeLanguage(language)}
-          aria-pressed={router.locale === language}
+          aria-pressed={activeLanguage === language}
           className={`${compact ? "px-2 py-2" : "px-5 py-3"} rounded-full text-sm font-bold uppercase ${
-            router.locale === language
+            activeLanguage === language
               ? "bg-white text-blue-600"
               : "bg-gray-200 text-black"
           }`}
@@ -45,15 +48,15 @@ function LanguageSwitcher({ compact = false }) {
 
 function NavigationLink({ item, mobile = false }) {
   const router = useRouter();
-  const { t } = useTranslation("common");
-  const isActive = router.pathname === item.href;
+  const { t, i18n } = useTranslation("common");
+  const isActive = stripLanguagePrefix(router.asPath.split(/[?#]/u)[0]) === item.href;
   const color = isActive
     ? "text-gray-800 hover:text-gray-800"
     : "text-gray-400 hover:text-gray-800";
 
   return (
     <Link
-      href={item.href}
+      href={localizedPath(item.href, i18n.resolvedLanguage)}
       className={`${mobile ? "block" : "align-middle"} rounded-md px-3 py-2 text-base font-bold ${color} md:text-lg md:leading-loose`}
     >
       {t(item.label)}
@@ -62,7 +65,7 @@ function NavigationLink({ item, mobile = false }) {
 }
 
 export default function NavBar() {
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation("common");
 
   return (
     <Disclosure as="nav" className="bg-white">
@@ -85,7 +88,10 @@ export default function NavBar() {
             </div>
 
             <div className="flex flex-1 items-center justify-center sm:justify-between">
-              <Link href="/" className="flex w-10 items-center md:w-12 lg:w-16">
+              <Link
+                href={localizedPath("/", i18n.resolvedLanguage)}
+                className="flex w-10 items-center md:w-12 lg:w-16"
+              >
                 <Image src={logo} alt="Help Colombia Now" priority />
               </Link>
 

@@ -1,9 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
+import LocalizedLink from "./LocalizedLink";
 import Badge from "./Badge/badge";
 import Button from "./Button/button";
 import Markdown from "react-markdown";
 import { useTranslation } from 'next-i18next/pages';
+import { withBasePath } from "../lib/i18n-routing";
 
 export default function OrgPage({ organization, showFrontPageLink = false }) {
   const { t } = useTranslation('common');
@@ -34,7 +35,7 @@ export default function OrgPage({ organization, showFrontPageLink = false }) {
       <div className="h-60 w-full lg:h-80">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={imageUrl}
+          src={withBasePath(imageUrl)}
           alt="Organization Logo"
           className=" w-full h-full object-cover object-center"
           loading="lazy"
@@ -42,7 +43,7 @@ export default function OrgPage({ organization, showFrontPageLink = false }) {
       </div>
       {showFrontPageLink && (
         <div className="mt-12 md:px-20 lg:px-40">
-          <Link href="/" className="h-12 font-bold">&lt; {t('organization.back').toUpperCase()}</Link>
+          <LocalizedLink href="/" className="h-12 font-bold">&lt; {t('organization.back').toUpperCase()}</LocalizedLink>
         </div>
       )}
       <div
@@ -111,7 +112,7 @@ export default function OrgPage({ organization, showFrontPageLink = false }) {
             {social.instagram && (
               <a href={social.instagram} target="_blank" rel="noreferrer" className="flex items-center">
                 <Image
-                  src="/assets/icons/instagram.svg"
+                  src={withBasePath("/assets/icons/instagram.svg")}
                   alt="instagram"
                   height={28}
                   width={28}
@@ -122,7 +123,7 @@ export default function OrgPage({ organization, showFrontPageLink = false }) {
             {social.facebook && (
               <a href={social.facebook} target="_blank" rel="noreferrer" className="flex items-center">
                 <Image
-                  src="/assets/icons/facebook.svg"
+                  src={withBasePath("/assets/icons/facebook.svg")}
                   alt="Facebook"
                   height={28}
                   width={28}
@@ -133,7 +134,7 @@ export default function OrgPage({ organization, showFrontPageLink = false }) {
             {social.twitter && (
               <a href={social.twitter} target="_blank" rel="noreferrer" className="flex items-center">
                 <Image
-                  src="/assets/icons/twitter.svg"
+                  src={withBasePath("/assets/icons/twitter.svg")}
                   alt="twitter"
                   height={28}
                   width={28}

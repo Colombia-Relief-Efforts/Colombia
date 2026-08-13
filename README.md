@@ -34,10 +34,6 @@ file and field.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -54,8 +50,16 @@ Before opening a PR, please check that your changes can be built:
 npm run build
 ```
 
-## Deploy on Vercel
+## Deploy on GitHub Pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The site is exported as static HTML into `out/` during `npm run build`. Merges to
+`main` automatically deploy that directory through `.github/workflows/deploy-pages.yml`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Before the first deployment, open the repository's **Settings → Pages** and set
+**Source** to **GitHub Actions**. The project site will be available at:
+
+`https://colombia-relief-efforts.github.io/Colombia/`
+
+The workflow supplies `/Colombia` as the production base path. Local builds use
+the root path by default; use `PAGES_BASE_PATH=/Colombia npm run build` to test
+the exact GitHub Pages paths locally.

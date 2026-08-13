@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import Nav from './Nav/nav';
-import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next/pages';
 
 export default function Layout({ children }) {
-    const router = useRouter();
-    const siteTitle = router.locale === 'en' ? 'Help Colombia Now' : 'Ayuda a Colombia Ahora';
+    const { i18n } = useTranslation();
+    const siteTitle = i18n.resolvedLanguage === 'en' ? 'Help Colombia Now' : 'Ayuda a Colombia Ahora';
 
     return (
         <div className="m-6 sm:my-12 sm:mx-16">

@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslation
 import Layout from "../../components/layout";
 import Hero from "../../components/SubPage/Hero/hero";
 import BlueInlineCallout from "../../components/blueInlineCallout";
-import Link from "next/link";
+import Link from "../../components/LocalizedLink";
 import Button from "../../components/Button/button";
 import ListItem from '../../components/List/listItem';
 
@@ -144,7 +144,7 @@ export default function ForSmallFundraisers(props) {
     );
 }
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ locale = "es" }) {
     return {
         props: {
             ...(await serverSideTranslations(locale, ['for-small-fundraisers', 'common'])),

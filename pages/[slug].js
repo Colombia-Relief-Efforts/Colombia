@@ -15,15 +15,15 @@ export default function OrganizationPage({ organization }) {
 export async function getStaticPaths() {
   return {
     paths: getOrganizations().map(({ slug }) => ({ params: { slug } })),
-    fallback: "blocking",
+    fallback: false,
   };
 }
 
-export async function getStaticProps({ params: { slug }, locale }) {
+export async function getStaticProps({ params: { slug }, locale = "es" }) {
   const organization = getOrganization(slug);
 
   if (!organization) {
-    return { notFound: true, revalidate: 10 };
+    return { notFound: true };
   }
 
   return {
@@ -31,6 +31,5 @@ export async function getStaticProps({ params: { slug }, locale }) {
       organization,
       ...(await serverSideTranslations(locale, ["common"])),
     },
-    revalidate: 10,
   };
 }
