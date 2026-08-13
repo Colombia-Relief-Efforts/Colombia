@@ -1,13 +1,13 @@
 import Head from 'next/head'
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import Layout from "../components/layout";
 import Hero from "../components/SubPage/Hero/hero";
 import PaymentMethods from "../components/SubPage/PaymentMethods/paymentMethods";
 import Image from "next/image";
 import arrowDown from "../public/assets/icons/arrow_right.svg";
 import OneFaq from "../components/SubPage/FAQ/OneFaq";
-import sheets from "../lib/sheets";
+import { getPaymentMethods, paymentMethodHeadings } from "../lib/markdown";
 import Link from "next/link";
 
 export default function ForFundraisers(props) {
@@ -175,15 +175,11 @@ export default function ForFundraisers(props) {
 }
 
 export async function getStaticProps({ locale }) {
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.SHEET_ID,
-        range: "Payment Method",
-    });
-    const [title, ...rows] = response.data.values;
+    const rows = getPaymentMethods();
 
     return {
         props: {
-            title,
+            title: paymentMethodHeadings,
             rows,
             ...(await serverSideTranslations(locale, ['for-fundraisers', 'common'])),
         },

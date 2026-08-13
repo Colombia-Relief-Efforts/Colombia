@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next/pages';
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
 import Layout from "../../components/layout";
 import Hero from "../../components/SubPage/Hero/hero";
-import sheets from "../../lib/sheets";
+import { getPaymentMethods, paymentMethodHeadings } from "../../lib/markdown";
 import BlueInlineCallout from "../../components/blueInlineCallout";
 import Link from "next/link";
 import Button from "../../components/Button/button";
@@ -153,15 +153,11 @@ export default function ForSmallFundraisers(props) {
 }
 
 export async function getStaticProps({ locale }) {
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.SHEET_ID,
-        range: "Payment Method",
-    });
-    const [title, ...rows] = response.data.values;
+    const rows = getPaymentMethods();
 
     return {
         props: {
-            title,
+            title: paymentMethodHeadings,
             rows,
             ...(await serverSideTranslations(locale, ['for-small-fundraisers', 'common'])),
         },

@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import sheets from "../lib/sheets";
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations';
+import { getOrganizations, organizationHeadings } from "../lib/markdown";
 import OrgCard from "../components/OrgCard";
 import OrgPage from "../components/OrgPage";
 import Hero from "../components/Hero/hero";
@@ -214,19 +214,12 @@ export default function Home(props) {
 }
 
 export async function getStaticProps({ locale }) {
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.SHEET_ID,
-        range: "Organizations (English)",
-    });
-    const [title, ...rows] = response.data.values;
-    rows.map((data, initialIndex) => {
-        data.push(initialIndex + 1);
-    });
+    const rows = getOrganizations();
 
     return {
         props: {
             ...(await serverSideTranslations(locale, ['about-us', 'common'])),
-            title,
+            title: organizationHeadings,
             rows,
         },
         revalidate: 10,

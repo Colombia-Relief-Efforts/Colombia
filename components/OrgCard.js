@@ -2,6 +2,7 @@ import Link from "next/link";
 import Badge from "./Badge/badge";
 import Button from "./Button/button";
 import Image from "next/image";
+import Markdown from "react-markdown";
 
 function OrgCard({ titles, values, orgIndex, open }) {
   const [
@@ -55,7 +56,9 @@ function OrgCard({ titles, values, orgIndex, open }) {
             <h1 className=" font-bold text-2xl mb-4">
               {orgName}
             </h1>
-            <p className="text-base">{englishDesc}</p>
+            <div className="text-base">
+              <Markdown>{englishDesc}</Markdown>
+            </div>
         </div>
       </a>
       <div className="flex mb-6 mt-5 px-4">

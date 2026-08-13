@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Badge from "./Badge/badge";
 import Button from "./Button/button";
+import Markdown from "react-markdown";
 
 export default function OrgPage({ orgData, showFrontPageLink, expandModal}) {
   const [
@@ -116,7 +117,9 @@ export default function OrgPage({ orgData, showFrontPageLink, expandModal}) {
         </div>
         <section className="max-w-5xl mt-12">
           <h2 className="font-black text-xl">Introduction</h2>
-          <p className="mt-6 mb-3">{englishDesc}</p>
+          <div className="mt-6 mb-3">
+            <Markdown>{englishDesc}</Markdown>
+          </div>
           <Badge value={cause}/>
           {spendingTowards && (
             <>
