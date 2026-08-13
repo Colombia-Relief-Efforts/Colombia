@@ -3,40 +3,38 @@ import Link from "next/link";
 import Badge from "./Badge/badge";
 import Button from "./Button/button";
 import Markdown from "react-markdown";
+import { useTranslation } from 'next-i18next/pages';
 
-export default function OrgPage({ orgData, showFrontPageLink, expandModal}) {
-  const [
-    orgName,
-    donationLinks,
+export default function OrgPage({ organization, showFrontPageLink = false }) {
+  const { t } = useTranslation('common');
+  const {
+    name,
+    description,
+    imageUrl,
+    city,
+    department,
+    address,
+    addressUrl,
+    donationUrl,
+    contactUrl,
+    contactLabel,
     largeDonationsContact,
-    englishDesc,
     cause,
     spendingTowards,
-    accomplishments,
+    accomplishmentsUrl,
     backedBy,
-    paymentMethod,
-    crypto,
-    instagram,
-    facebook,
-    twitter,
-    website,
-    bannerImage,
-    smallOrg,
-    bannerImage2
-  ] = orgData;
-
-  const bannerViewableUrl = typeof bannerImage2 === 'string' ? bannerImage2 : '';
+    paymentMethods,
+    acceptsCrypto,
+    social,
+    websiteUrl,
+  } = organization;
 
   return (
     <div>
-      <div className="w-100 h-60 lg:h-80">
+      <div className="h-60 w-full lg:h-80">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={
-            bannerViewableUrl == ""
-              ? "/assets/default_cover.png"
-              : bannerViewableUrl
-          }
+          src={imageUrl}
           alt="Organization Logo"
           className=" w-full h-full object-cover object-center"
           loading="lazy"
@@ -44,71 +42,101 @@ export default function OrgPage({ orgData, showFrontPageLink, expandModal}) {
       </div>
       {showFrontPageLink && (
         <div className="mt-12 md:px-20 lg:px-40">
-          <Link href="/">
-            <a className="h-12 font-bold">&lt; BROWSE FUNDRAISERS</a>
-          </Link>
+          <Link href="/" className="h-12 font-bold">&lt; {t('organization.back').toUpperCase()}</Link>
         </div>
       )}
       <div
         id="organization"
         className={showFrontPageLink ? "px-0 pt-8 md:px-20 lg:px-40" : "p-8 md:py-12 md:px-24 lg:px-44"}
       >
-        <h1 className="text-4xl font-black">{orgName}</h1>
+        <h1 className="text-4xl font-black">{name}</h1>
+        {(city || department) && (
+          <p className="mt-3 text-base font-semibold text-brandblue-default">
+            {t('organization.location')}: {[city, department].filter(Boolean).join(", ")}
+          </p>
+        )}
+        {address && (
+          <p className="mt-2 text-sm text-gray-700">
+            {address}
+            {addressUrl && (
+              <>
+                {" · "}
+                <a
+                  href={addressUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-semibold text-brandblue-default underline underline-offset-4 hover:text-brandblue-accent"
+                >
+                  {t('organization.view-map')}
+                </a>
+              </>
+            )}
+          </p>
+        )}
         <div
           id="links-area"
-          className="mt-10 flex flex-wrap gap-8 w-100 justify-between items-center"
+          className="mt-10 flex w-full flex-wrap items-center gap-8"
         >
-          <div className="flex flex-wrap flex-row content-center w-full md:w-64">
-            {/* conditionally render donation link*/}
-            {typeof donationLinks === "string" && (
+          {donationUrl && (
+            <div className="flex w-full flex-row flex-wrap content-center md:w-64">
               <Button
-                value="Donate Now"
-                href={donationLinks.trim()}
+                value={t('organization.donate')}
+                href={donationUrl.trim()}
                 target="_blank"
                 isExternalLink
               />
-            )}
-          </div>
-          <div id="links" className="flex flex-wrap gap-5 md:gap-7 items-center">
-            {website && (
+            </div>
+          )}
+          {contactUrl && (
+            <div className="flex w-full flex-row flex-wrap content-center md:w-64">
+              <Button
+                value={contactLabel || t('organization.contact-action')}
+                href={contactUrl}
+                target="_blank"
+                isExternalLink
+              />
+            </div>
+          )}
+          <div id="links" className="flex flex-wrap items-center gap-5 md:gap-7">
+            {websiteUrl && (
               <a
-                href={website.trim()}
+                href={websiteUrl.trim()}
                 target="_blank"
                 rel="noreferrer"
-                className=" text-uablue-default text-lg md:text-xl font-bold underline underline-offset-4 hover:text-uablue-accent"
+                className=" text-brandblue-default text-lg md:text-xl font-bold underline underline-offset-4 hover:text-brandblue-accent"
               >
-                Website
+                {t('organization.website')}
               </a>
             )}
-            {instagram && (
-              <a href={instagram} target="_blank" rel="noreferrer" className="flex items-center">
+            {social.instagram && (
+              <a href={social.instagram} target="_blank" rel="noreferrer" className="flex items-center">
                 <Image
                   src="/assets/icons/instagram.svg"
                   alt="instagram"
-                  height="28px"
-                  width="28px"
+                  height={28}
+                  width={28}
                   loading="lazy"
                 ></Image>
               </a>
             )}
-            {facebook && (
-              <a href={facebook} target="_blank" rel="noreferrer" className="flex items-center">
+            {social.facebook && (
+              <a href={social.facebook} target="_blank" rel="noreferrer" className="flex items-center">
                 <Image
                   src="/assets/icons/facebook.svg"
-                  alt={facebook}
-                  height="28px"
-                  width="28px"
+                  alt="Facebook"
+                  height={28}
+                  width={28}
                   loading="lazy"
                 ></Image>
               </a>
             )}
-            {twitter && (
-              <a href={twitter} target="_blank" rel="noreferrer" className="flex items-center">
+            {social.twitter && (
+              <a href={social.twitter} target="_blank" rel="noreferrer" className="flex items-center">
                 <Image
                   src="/assets/icons/twitter.svg"
                   alt="twitter"
-                  height="28px"
-                  width="28px"
+                  height={28}
+                  width={28}
                   loading="lazy"
                 ></Image>
               </a>
@@ -116,32 +144,32 @@ export default function OrgPage({ orgData, showFrontPageLink, expandModal}) {
           </div>
         </div>
         <section className="max-w-5xl mt-12">
-          <h2 className="font-black text-xl">Introduction</h2>
+          <h2 className="font-black text-xl">{t('organization.introduction')}</h2>
           <div className="mt-6 mb-3">
-            <Markdown>{englishDesc}</Markdown>
+            <Markdown>{description}</Markdown>
           </div>
           <Badge value={cause}/>
           {spendingTowards && (
             <>
               <h2 className="font-black text-xl mt-12">
-                How they will spend donations
+                {t('organization.spending')}
               </h2>
               <p className="mt-6">{spendingTowards}</p>
             </>
           )}
-          {accomplishments && (
+          {accomplishmentsUrl && (
             <>
               <h2 className="font-black text-xl mt-12">
-                What they&apos;ve accomplished so far
+                {t('organization.accomplishments')}
               </h2>
               <p className="mt-6">
                 <a
-                  href={accomplishments}
+                  href={accomplishmentsUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className=" text-uablue-default underline underline-offset-4 text-base font-bold hover:text-uablue-accent"
+                  className=" text-brandblue-default underline underline-offset-4 text-base font-bold hover:text-brandblue-accent"
                 >
-                  Check out their past work
+                  {t('organization.past-work')}
                 </a>
               </p>
             </>
@@ -149,30 +177,32 @@ export default function OrgPage({ orgData, showFrontPageLink, expandModal}) {
           {backedBy && (
             <>
               <h2 className="font-black text-xl mt-12">
-                Institutions that support them
+                {t('organization.supporters')}
               </h2>
               <p className="mt-6">{backedBy}</p>
             </>
           )}
           {largeDonationsContact && (
             <>
-              <h2 className="font-black text-xl mt-12">Contact information</h2>
+              <h2 className="font-black text-xl mt-12">{t('organization.contact')}</h2>
               <p className="mt-6">{largeDonationsContact}</p>
             </>
           )}
-          <h2 className="font-black text-2xl mt-12 mb-4">Payment Method</h2>
-          <div className="mt-2 flex flex-wrap gap-2 mb-16">
-            {/* conditionally render payment method */}
-            {typeof paymentMethod === "string" &&
-              paymentMethod.split(",").map((method, index) => {
-                return <Badge key={"method-" + index} value={method} />;
-              })}
-            {crypto == "yes" && (
-              <div className="px-4 py-1 mt-4 border-2 rounded-full border-uablue-default text-uablue-default text-center text-sm">
-                Crypto
+          {(paymentMethods.length > 0 || acceptsCrypto) && (
+            <>
+              <h2 className="mb-4 mt-12 text-2xl font-black">{t('organization.payment-method')}</h2>
+              <div className="mb-16 mt-2 flex flex-wrap gap-2">
+                {paymentMethods.map((method) => (
+                  <Badge key={method} value={method} />
+                ))}
+                {acceptsCrypto && (
+                  <div className="mt-4 rounded-full border-2 border-brandblue-default px-4 py-1 text-center text-sm text-brandblue-default">
+                    {t('organization.crypto')}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </>
+          )}
         </section>
       </div>
     </div>

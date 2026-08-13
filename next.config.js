@@ -3,6 +3,7 @@ const { i18n } = require('./next-i18next.config');
 const { withSentryConfig } = require('@sentry/nextjs');
 const nextConfig = {
   i18n,
+  agentRules: false,
   reactStrictMode: true,
   images: {
     remotePatterns: [

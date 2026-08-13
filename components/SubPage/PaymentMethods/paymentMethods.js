@@ -2,15 +2,19 @@ import PaymentOption from './paymentOption';
 
 
 export default function PaymentMethods(props) {
-    
-    const payMethods = props.ukraine ? props.rows.filter((row) => row[4]==='Yes') : props.rows.filter((row) => row[5]==='Yes')
+    const paymentMethods = props.methods.filter((method) =>
+        props.colombia ? method.availableInColombia : method.availableInternationally
+    );
+
     return (
         <div>
-            {payMethods.map((row,index) => {
-                return (
-                    <PaymentOption payDesc={row} key={`pay_method${index}`} active={props.ukraine ? true : false}/>
-                )
-            })}
+            {paymentMethods.map((method) => (
+                <PaymentOption
+                    method={method}
+                    key={method.slug}
+                    initiallyExpanded={props.colombia}
+                />
+            ))}
         </div>
     )
 }

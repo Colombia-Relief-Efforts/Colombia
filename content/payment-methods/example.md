@@ -8,7 +8,7 @@ pros:
   - Widely available
 cons:
   - Example limitation
-availableInUkraine: true
+availableInColombia: true
 availableInternationally: true
 serviceRegion: Worldwide
 requirements: An account

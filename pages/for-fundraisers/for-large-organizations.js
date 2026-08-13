@@ -1,162 +1,92 @@
-import Layout from "../../components/layout";
-import Hero from "../../components/SubPage/Hero/hero";
-import { getPaymentMethods, paymentMethodHeadings } from "../../lib/markdown";
-import BlueInlineCallout from "../../components/blueInlineCallout";
 import Link from "next/link";
-import Button from "../../components/Button/button";
-import ListItem from "../../components/List/listItem";
+import { serverSideTranslations } from "next-i18next/pages/serverSideTranslations";
+import { useTranslation } from "next-i18next/pages";
 
-export default function ForLargeOrganizations(props) {
-    return (
-        <div>
-            <Layout>
-                <div className="w-full md:w-3/4 lg:w-2/3 pb-8">
-                    <div className="mt-12 font-bold lg:pl-24">
-                        <Link href="/for-fundraisers" passHref>
-                            <a>{"<"} BACK</a>
-                        </Link>
-                    </div>
-                    <Hero
-                        title="For Bigger Organizations"
-                        description="We help highlight organizations doing an important work on the ground in Ukraine."
-                    />
-                    <div className="bg-gray-100 absolute right-0 py-8 px-6 sm:px-16 sm:mt-8 lg:pl-40 lg:pr-96">
-                        <div className="mt-8">
-                            <h1 className="font-bold text-2xl lg:text-4xl mb-4 text-uablue-default">
-                                Some of the major reasons why foreigners choose
-                                not to donate:
-                            </h1>
-                            <p>
-                                <b>
-                                    Some of the major reasons why foreigners
-                                    choose not to donate include:
-                                </b>
-                            </p>
-                            <ul>
-                                <ListItem>
-                                    Not knowing what the money will be spent
-                                    on
-                                </ListItem>
-                                <ListItem>
-                                    Not understanding Ukrainian descriptions
-                                    on the donations page
-                                </ListItem>
-                                <ListItem>
-                                    Not knowing who to contact when
-                                    considering large donations
-                                </ListItem>
-                            </ul>
-                            <br />
-                            <BlueInlineCallout>
-                                <p>
-                                    If your organization is directly aiding
-                                    people on the ground in Ukraine and lacks
-                                    funding to satisfy immediate aid requests -
-                                    we want to help you communicate this effort.
-                                </p>
-                            </BlueInlineCallout>
-                        </div>
-                        <div>
-                            <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8 text-uablue-default">
-                                How to get featured?
-                            </h1>
-                            <p>
-                                Please submit the application form. You can
-                                submit it in Ukrainian and we will take over the
-                                translation!{" "}
-                                <div className="w-full sm:w-64 mt-4">
-                                    <Button
-                                        value="Application form"
-                                        href="https://forms.gle/k7X5SMjTBovUpfqFA"
-                                        target="_blank"
-                                    />
-                                </div>
-                            </p>
-                        </div>
-                        <div>
-                            <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8 text-uablue-default">
-                                How can I make my donations page better?
-                            </h1>
-                            <p>
-                                Includes the following information:
-                                <br />
-                                <br />
-                                <ul>
-                                    <ListItem>
-                                        <b>
-                                            A brief description of your
-                                            organization in English
-                                        </b>
-                                        <br /> Include any relevant background,
-                                        major institutional backers, and past
-                                        accomplishments.
-                                    </ListItem>
-                                    <ListItem>
-                                        <b>
-                                            Explanation of how the money will be
-                                            used
-                                        </b>
-                                    </ListItem>
-                                    <ListItem>
-                                        <b>
-                                            How much approximately you are
-                                            trying to raise
-                                        </b>
-                                    </ListItem>
-                                    <ListItem>
-                                        <b>
-                                            Any social media links that can help
-                                            donors better vet this donation
-                                            request:
-                                        </b>
-                                        <br />
-                                        Share links to previous fundraisers
-                                        supported by large numbers of people;
-                                        social media posts that feature your
-                                        past efforts; endorsements by
-                                        influential individuals, institutions,
-                                        or media; or other evidence of you past
-                                        efforts.
-                                    </ListItem>
-                                    <ListItem>
-                                        <b>
-                                            Payment method and deposit details:
-                                        </b>
-                                        <br />
-                                        Make sure your deposit information is
-                                        accurate and clearly organized. Use
-                                        payment methods that are simple to
-                                        donate to. PayPal is now live in
-                                        Ukraine. Consider highlighting Wise as a
-                                        transaction option alongside SWIFT when
-                                        hosting the fundraiser with a Ukrainian
-                                        card.
-                                    </ListItem>
-                                    <ListItem>
-                                        <b>Contact for big donations</b>
-                                        <br />
-                                        Preferablly share a contact of someone
-                                        in your organization who speaks English.
-                                        Please make sure it’s not a person in an
-                                        active combat zone.{" "}
-                                    </ListItem>
-                                </ul>
-                            </p>
-                        </div>
-                    </div>{" "}
-                </div>
-            </Layout>{" "}
+import BlueInlineCallout from "../../components/blueInlineCallout";
+import Button from "../../components/Button/button";
+import Layout from "../../components/layout";
+import ListItem from "../../components/List/listItem";
+import Hero from "../../components/SubPage/Hero/hero";
+
+export default function ForLargeOrganizations() {
+  const { t } = useTranslation("for-large-organizations");
+
+  return (
+    <Layout>
+      <div className="w-full pb-8 md:w-3/4 lg:w-2/3">
+        <div className="mt-12 font-bold lg:pl-24">
+          <Link href="/for-fundraisers">{"<"} {t("back")}</Link>
         </div>
-    );
+        <Hero title={t("hero-title")} description={t("hero-description")} />
+        <div className="absolute right-0 bg-gray-100 px-6 py-8 sm:mt-8 sm:px-16 lg:pl-40 lg:pr-96">
+          <section className="mt-8">
+            <h1 className="mb-4 text-2xl font-bold text-brandblue-default lg:text-4xl">
+              {t("reasons-title")}
+            </h1>
+            <p className="font-bold">{t("reasons-intro")}</p>
+            <ul>
+              <ListItem>{t("reason-1")}</ListItem>
+              <ListItem>{t("reason-2")}</ListItem>
+              <ListItem>{t("reason-3")}</ListItem>
+            </ul>
+            <BlueInlineCallout>
+              <p>{t("callout")}</p>
+            </BlueInlineCallout>
+          </section>
+
+          <section>
+            <h1 className="mb-4 mt-8 text-2xl font-bold text-brandblue-default lg:text-4xl">
+              {t("featured-title")}
+            </h1>
+            <p>{t("featured-body")}</p>
+            <div className="mt-4 w-full sm:w-64">
+              <Button
+                value={t("application")}
+                href="https://forms.gle/k7X5SMjTBovUpfqFA"
+                target="_blank"
+              />
+            </div>
+          </section>
+
+          <section>
+            <h1 className="mb-4 mt-8 text-2xl font-bold text-brandblue-default lg:text-4xl">
+              {t("improve-title")}
+            </h1>
+            <p>{t("improve-intro")}</p>
+            <ul className="mt-4">
+              <ListItem>
+                <b>{t("item-1-title")}</b>
+                <br /> {t("item-1-body")}
+              </ListItem>
+              <ListItem><b>{t("item-2")}</b></ListItem>
+              <ListItem><b>{t("item-3")}</b></ListItem>
+              <ListItem>
+                <b>{t("item-4-title")}</b>
+                <br />
+                {t("item-4-body")}
+              </ListItem>
+              <ListItem>
+                <b>{t("item-5-title")}</b>
+                <br />
+                {t("item-5-body")}
+              </ListItem>
+              <ListItem>
+                <b>{t("item-6-title")}</b>
+                <br />
+                {t("item-6-body")}
+              </ListItem>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </Layout>
+  );
 }
 
-export async function getStaticProps() {
-    const rows = getPaymentMethods();
-
+export async function getStaticProps({ locale }) {
     return {
         props: {
-            title: paymentMethodHeadings,
-            rows,
+      ...(await serverSideTranslations(locale, ["common", "for-large-organizations"])),
         },
     };
 }

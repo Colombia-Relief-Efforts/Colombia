@@ -18,6 +18,20 @@ its front matter and content, and set `published: true`. An organization file's
 name becomes its URL slug; for example, `direct-relief.md` is available at
 `/direct-relief`.
 
+Organization front matter supports:
+
+- Required: `name`
+- Location: `department`, `city`, `address`, `addressUrl`
+- Classification: `cause`, `smallFundraiser`, `published`, `order`
+- Donations and actions: `donationUrl`, `contactUrl`, `contactLabel`, `paymentMethods`, `acceptsCrypto`
+- Contact: `largeDonationsContact`, `websiteUrl`, `instagramUrl`, `facebookUrl`, `twitterUrl`
+- Details: `spendingTowards`, `accomplishmentsUrl`, `backedBy`
+- Image: `bannerImage` or `bannerImageUrl`
+
+The Markdown body is the organization description. Published content is
+validated during development and builds, with errors identifying the invalid
+file and field.
+
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
