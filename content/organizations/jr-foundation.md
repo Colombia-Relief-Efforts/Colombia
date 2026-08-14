@@ -7,7 +7,7 @@ department: Quindío
 city: Armenia
 address: Km 4 vía Tebaida, condominio La Cabaña, condominio 191
 addressUrl: https://maps.app.goo.gl/TqyKTmLTkJmdvBXm8
-largeDonationsContact: "312 673 5070"
+largeDonationsContact: "322 310 6002"
 instagramUrl: https://www.instagram.com/jrfoundationcol/
 websiteUrl: https://www.instagram.com/jrfoundationcol/
 spendingTowards: Recolección de alimentos no perecederos, ropa en buen estado y elementos de aseo para las familias afectadas.
@@ -28,4 +28,4 @@ Se reciben:
 
 **Punto de recolección:** km 4 vía Tebaida, condominio La Cabaña, condominio 191.
 
-**Más información:** 312 673 5070.
+**Más información:** 322 310 6002.
