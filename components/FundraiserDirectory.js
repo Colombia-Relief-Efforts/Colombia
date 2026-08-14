@@ -5,45 +5,6 @@ import { localizedPath } from "../lib/i18n-routing";
 import OrgCard from "./OrgCard";
 import OrganizationModal from "./OrganizationModal";
 
-const CATEGORY = {
-  COMMUNITY: "community",
-  LARGE: "large",
-};
-
-function CategoryTabs({ activeCategory, onChange }) {
-  const { t, i18n } = useTranslation("common");
-  const categories = [
-    { id: CATEGORY.COMMUNITY, label: t("home.small-fundraisers") },
-    { id: CATEGORY.LARGE, label: t("home.large-charities") },
-  ];
-
-  return (
-    <div className="absolute inset-x-0 -top-7 flex justify-center px-4">
-      <div
-        className="flex w-full max-w-4xl rounded-full border-2 border-white bg-gray-200 shadow-sm"
-        role="tablist"
-      >
-        {categories.map(({ id, label }) => (
-          <button
-            key={id}
-            type="button"
-            role="tab"
-            aria-selected={activeCategory === id}
-            onClick={() => onChange(id)}
-            className={`flex-1 rounded-full px-3 py-3 text-sm font-bold transition-colors sm:px-5 ${
-              activeCategory === id
-                ? "bg-white text-blue-600"
-                : "bg-gray-200 text-black"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function DepartmentFilter({ departments, value, onChange }) {
   const { t } = useTranslation("common");
 
@@ -73,8 +34,7 @@ function DepartmentFilter({ departments, value, onChange }) {
 
 export default function FundraiserDirectory({ organizations }) {
   const router = useRouter();
-  const { t } = useTranslation("common");
-  const [activeCategory, setActiveCategory] = useState(CATEGORY.COMMUNITY);
+  const { t, i18n } = useTranslation("common");
   const [selectedDepartment, setSelectedDepartment] = useState("all");
   const [selectedOrganization, setSelectedOrganization] = useState(null);
 
@@ -83,14 +43,10 @@ export default function FundraiserDirectory({ organizations }) {
     [organizations],
   );
 
-  const visibleOrganizations = organizations.filter((organization) => {
-    const matchesCategory =
-      organization.smallFundraiser === (activeCategory === CATEGORY.COMMUNITY);
-    const matchesDepartment =
-      selectedDepartment === "all" || organization.department === selectedDepartment;
-
-    return matchesCategory && matchesDepartment;
-  });
+  const visibleOrganizations = organizations.filter(
+    (organization) =>
+      selectedDepartment === "all" || organization.department === selectedDepartment,
+  );
 
   function openOrganization(organization) {
     setSelectedOrganization(organization);
@@ -106,19 +62,8 @@ export default function FundraiserDirectory({ organizations }) {
     }
   }
 
-  const categoryDescription =
-    activeCategory === CATEGORY.COMMUNITY
-      ? t("home.small-description")
-      : t("home.large-description");
-
   return (
-    <section className="full-bleed relative mt-20 box-border bg-gray-100 px-6 pb-16 pt-16 sm:px-12 lg:px-20">
-      <CategoryTabs activeCategory={activeCategory} onChange={setActiveCategory} />
-
-      <p className="mx-auto max-w-xl px-0 py-3 text-center text-sm font-light sm:px-5">
-        {categoryDescription}
-      </p>
-
+    <section className="full-bleed box-border bg-gray-100 px-6 pb-16 pt-16 sm:px-12 lg:px-20">
       <DepartmentFilter
         departments={departments}
         value={selectedDepartment}
