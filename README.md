@@ -1,65 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) that uses npm as package manager.
+# Ayuda a Colombia Ahora
 
-## Getting Started
+Sitio para amplificar recaudaciones solidarias de grupos comunitarios y
+voluntarios que apoyan a personas afectadas por emergencias en Colombia.
 
-First, run the development server:
+**Sitio publicado:** [colombia-relief-efforts.github.io/Colombia](https://colombia-relief-efforts.github.io/Colombia/)
+
+## Primeros pasos
+
+Instala las dependencias y ejecuta el servidor de desarrollo:
 
 ```bash
+npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-## Content
+## Contenido
 
-The site content is stored as Markdown in `content/organizations` and
-`content/payment-methods`. Copy either included `example.md`, rename it, fill in
-its front matter and content, and set `published: true`. An organization file's
-name becomes its URL slug; for example, `direct-relief.md` is available at
-`/direct-relief`.
+El contenido del sitio se almacena como archivos Markdown en
+`content/organizations` y `content/payment-methods`.
 
-Organization front matter supports:
+Para agregar una organización:
 
-- Required: `name`
-- Location: `department`, `city`, `address`, `addressUrl`
-- Classification: `cause`, `published`, `order`
-- Donations and actions: `donationUrl`, `contactUrl`, `contactLabel`, `paymentMethods`, `acceptsCrypto`
-- Contact: `largeDonationsContact`, `websiteUrl`, `instagramUrl`, `facebookUrl`, `twitterUrl`
-- Details: `spendingTowards`, `accomplishmentsUrl`, `backedBy`
-- Image: `bannerImage` or `bannerImageUrl`
+1. Copia el archivo `example.md` correspondiente.
+2. Renómbralo con un identificador descriptivo.
+3. Completa los metadatos y el contenido.
+4. Establece `published: true` cuando esté listo para publicarse.
 
-The Markdown body is the organization description. Published content is
-validated during development and builds, with errors identifying the invalid
-file and field.
+El nombre del archivo se convierte en la ruta de la organización. Por ejemplo,
+`cruz-roja-colombiana.md` estará disponible en `/cruz-roja-colombiana`.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Los metadatos admitidos para una organización son:
 
-## Learn More
+- Obligatorio: `name`
+- Ubicación: `department`, `city`, `address`, `addressUrl`
+- Clasificación: `cause`, `published`, `order`
+- Donaciones y acciones: `donationUrl`, `contactUrl`, `contactLabel`, `paymentMethods`, `acceptsCrypto`
+- Contacto: `largeDonationsContact`, `websiteUrl`, `instagramUrl`, `facebookUrl`, `twitterUrl`
+- Detalles: `spendingTowards`, `accomplishmentsUrl`, `backedBy`
+- Imagen: `bannerImage` o `bannerImageUrl`
 
-To learn more about Next.js, take a look at the following resources:
+El cuerpo del archivo Markdown contiene la descripción de la organización. El
+contenido publicado se valida durante el desarrollo y la compilación; cualquier
+error identifica el archivo y el campo que debe corregirse.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Verificación
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-### Building the project
-Before opening a PR, please check that your changes can be built:
+Antes de abrir una solicitud de cambios, ejecuta:
 
 ```bash
+npm run lint
 npm run build
 ```
 
-## Deploy on GitHub Pages
+## Publicación en GitHub Pages
 
-The site is exported as static HTML into `out/` during `npm run build`. Merges to
-`main` automatically deploy that directory through `.github/workflows/deploy-pages.yml`.
+`npm run build` exporta el sitio estático al directorio `out/`. Cada cambio
+integrado en `main` despliega automáticamente ese directorio mediante
+`.github/workflows/deploy-pages.yml`.
 
-Before the first deployment, open the repository's **Settings → Pages** and set
-**Source** to **GitHub Actions**. The project site will be available at:
+GitHub Pages está configurado para publicar el sitio en:
 
 `https://colombia-relief-efforts.github.io/Colombia/`
 
-The workflow supplies `/Colombia` as the production base path. Local builds use
-the root path by default; use `PAGES_BASE_PATH=/Colombia npm run build` to test
-the exact GitHub Pages paths locally.
+El flujo de publicación utiliza `/Colombia` como ruta base. Las compilaciones
+locales utilizan `/` de forma predeterminada. Para probar localmente las rutas
+exactas de producción, ejecuta:
+
+```bash
+PAGES_BASE_PATH=/Colombia npm run build
+```
+
+## Recursos técnicos
+
+- [Documentación de Next.js](https://nextjs.org/docs)
+- [Documentación de GitHub Pages](https://docs.github.com/es/pages)
