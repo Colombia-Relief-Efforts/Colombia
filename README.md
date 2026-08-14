@@ -22,7 +22,7 @@ Organization front matter supports:
 
 - Required: `name`
 - Location: `department`, `city`, `address`, `addressUrl`
-- Classification: `cause`, `smallFundraiser`, `published`, `order`
+- Classification: `cause`, `published`, `order`
 - Donations and actions: `donationUrl`, `contactUrl`, `contactLabel`, `paymentMethods`, `acceptsCrypto`
 - Contact: `largeDonationsContact`, `websiteUrl`, `instagramUrl`, `facebookUrl`, `twitterUrl`
 - Details: `spendingTowards`, `accomplishmentsUrl`, `backedBy`
