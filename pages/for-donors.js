@@ -47,6 +47,15 @@ export default function ForDonors() {
               <h1 className="font-bold text-2xl lg:text-4xl mb-4 mt-8">
                 {t('faq')}
               </h1>
+              <OneFaq title={t('scam-title')}>
+                <p>{t('scam-body')}</p>
+                <ul className="list-disc ml-8">
+                  <li>{t('scam-1')}</li>
+                  <li>{t('scam-2')}</li>
+                  <li>{t('scam-3')}</li>
+                  <li>{t('scam-4')}</li>
+                </ul>
+              </OneFaq>
               <OneFaq title={t('why-title')}>
                 <p>{t('why-body')}</p>
               </OneFaq>
